@@ -1,4 +1,4 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { AlurakutStyles } from '../src/lib/AluraKutCommons';
 
 const GlobalStyle = createGlobalStyle`
@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: sans-serif;
-    background-color: #D9E6F6;
+    background: no-repeat center/cover url('https://images.unsplash.com/photo-1606669059257-19fc4ca49f79?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80');
   }
 
   #__next {

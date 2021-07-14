@@ -1,11 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const MainGrid = styled.main`
   width: 100%;
   max-width: 500px;
   margin-left: auto;
   margin-right: auto;
-  display: grid;
   grid-gap: 10px;
   padding: 16px;
 
