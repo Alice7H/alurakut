@@ -10,7 +10,7 @@ O projeto Alurakut é uma rede social que foi criado durante a Imersão React da
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#layout">Layout</a> • 
  <a href="#status">Status</a> •
- <a href="#pre-requisitos">Pré-requisitos</a>
+ <a href="#pré-requisitos">Pré-requisitos</a>
 </p>
 
 ## Objetivo 
@@ -23,6 +23,7 @@ As seguintes ferramentas/bibliotecas foram usadas na construção do projeto:
 - [React](https://pt-br.reactjs.org/)
 - [Next](https://nextjs.org/)
 - [Styled-Components](https://styled-components.com/)
+- [DatoCMS](https://www.datocms.com)
 
 ## Layout 
 - [Figma](https://www.figma.com/file/K68ZzQKDgtINkSrjI4H4vA/Alurakut?node-id=58%3A0)
