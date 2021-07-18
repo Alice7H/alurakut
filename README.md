@@ -24,6 +24,8 @@ As seguintes ferramentas/bibliotecas foram usadas na construção do projeto:
 - [Next](https://nextjs.org/)
 - [Styled-Components](https://styled-components.com/)
 - [DatoCMS](https://www.datocms.com)
+- [html-react-parser](https://www.npmjs.com/package/html-react-parser)
+- [SunEditor](http://suneditor.com/sample/index.html)
 
 ## Layout 
 - [Figma](https://www.figma.com/file/K68ZzQKDgtINkSrjI4H4vA/Alurakut?node-id=58%3A0)

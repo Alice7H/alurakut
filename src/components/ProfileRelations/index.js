@@ -11,17 +11,6 @@ export default function ProfileRelationsBox({ title, arrayList }) {
         {
           arrayList.slice(0, 6).map((item) => {
             const number = Math.round(Math.random() * 10);
-
-            if (typeof item == 'string') {
-              return (
-                <li key={item}>
-                  <a href={`https://github.com/${item}`} target="_blank" rel="noopener noreferrer">
-                    <img src={`https://github.com/${item}.png` || `https://picsum.photos/300/300?random=${number}`} alt={item} />
-                    <span>{item}</span>
-                  </a>
-                </li>
-              );
-            }
             return (
               <li key={item.id}>
                 <a href={item.link} target="_blank" rel="noopener noreferrer">
