@@ -26,6 +26,9 @@ As seguintes ferramentas/bibliotecas foram usadas na construção do projeto:
 - [DatoCMS](https://www.datocms.com)
 - [html-react-parser](https://www.npmjs.com/package/html-react-parser)
 - [SunEditor](http://suneditor.com/sample/index.html)
+- [react-hot-toast](https://react-hot-toast.com/)
+- [Nookies](https://github.com/maticzav/nookies)
+- [jsonwebtoken](https://jwt.io/)
 
 ## Layout 
 - [Figma](https://www.figma.com/file/K68ZzQKDgtINkSrjI4H4vA/Alurakut?node-id=58%3A0)

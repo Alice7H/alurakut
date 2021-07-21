@@ -1,7 +1,7 @@
 import { SiteClient } from 'datocms-client';
 
 export default async function receiveRequests(request, response) {
-  const client = new SiteClient(process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN);
+  const client = new SiteClient(process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN_WRITTER);
   if (request.method === 'POST') {
     const registerCreated = await client.items.create({
       itemType: "975387",

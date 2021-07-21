@@ -2,12 +2,12 @@ export default function CommunityForm(props) {
 
   function handleCreateCommunity(event) {
     event.preventDefault();
-    const dadosDoForm = new FormData(event.target);
+    const dataForm = new FormData(event.target);
 
     const community = {
-      title: dadosDoForm.get('title'),
-      image: dadosDoForm.get('image'),
-      link: dadosDoForm.get('link'),
+      title: dataForm.get('title'),
+      image: dataForm.get('image'),
+      link: dataForm.get('link'),
       author: props.githubUser,
     }
 
@@ -19,9 +19,9 @@ export default function CommunityForm(props) {
       const result = await response.json();
       const community = result.registerCreated;
       const updatedCommunities = [...props.communities, community];
-      event.target.value = "";
+      event.target.reset();
       props.handleUpdateCommunity(updatedCommunities);
-    })
+    }).catch(error => console.error(error));
   }
 
   return (

@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 import Box from '../Box';
+import toast, { Toaster } from 'react-hot-toast';
 
 export function ScrapForm(props) {
   function handleCreateScrap(event) {
     event.preventDefault();
-    const dadosDoForm = new FormData(event.target);
+    const dataForm = new FormData(event.target);
     const scrap = {
-      message: dadosDoForm.get('message'),
+      message: dataForm.get('message'),
       author: props.githubUser,
-      receiveUser: dadosDoForm.get('receiveUser'),
-      image: dadosDoForm.get('image'),
+      receiveUser: dataForm.get('receiveUser'),
+      image: dataForm.get('image'),
     }
 
     fetch('/api/scraps', {
@@ -20,15 +21,15 @@ export function ScrapForm(props) {
       const result = await response.json();
       const scrap = result.registerCreated;
       if (scrap) {
-        // include toast
-        alert('Scrap criado com sucesso');
-        event.target.value = "";
+        toast.success('Scrap criado com sucesso');
+        event.target.reset();
       }
-    })
+    }).catch(error => { console.log(error); })
   }
 
   return (
     <form onSubmit={handleCreateScrap}>
+      <Toaster />
       <div>
         <input
           placeholder="Deixe um recado"
@@ -64,7 +65,7 @@ export function ScrapForm(props) {
 export function ScrapBox({ message, arrayList }) {
   return (
     <ScrapBox.Wrapper>
-      <h2 className="smallTitle">{message}</h2>
+      <h2 className="smallTitle">{message} ({arrayList.length})</h2>
       <ul>
         {
           arrayList.slice(0, 2).map((item) => {

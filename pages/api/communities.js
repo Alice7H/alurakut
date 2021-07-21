@@ -2,7 +2,7 @@ import { SiteClient } from 'datocms-client';
 
 // BFF - back-end for front-end
 export default async function receiveRequests(request, response) {
-  const client = new SiteClient(process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN);
+  const client = new SiteClient(process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN_WRITTER);
   if (request.method === 'POST') {
     //DTO - validações antes de confirmar a criação da nova comunidade
     const registerCreated = await client.items.create({

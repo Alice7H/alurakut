@@ -8,6 +8,12 @@ const MainGrid = styled.main`
   grid-gap: 10px;
   padding: 16px;
 
+  .luckMessage {
+    color: var(--colorPrimary);
+    font-size: 14px;
+    font-family: sans-serif;
+  }
+
   .profileArea {
     display: none;
     @media(min-width:860px){

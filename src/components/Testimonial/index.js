@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Box from '../Box';
 import parse from 'html-react-parser';
 import dynamic from "next/dynamic";
+import toast, { Toaster } from 'react-hot-toast';
+
 const SunEditor = dynamic(() => import("suneditor-react"), {
   ssr: false,
 });
@@ -25,15 +27,15 @@ export function TestimonialForm(props) {
       const result = await response.json();
       const testimonial = result.registerCreated;
       if (testimonial) {
-        // include toast
-        alert('Depoimento criado com sucesso');
-        event.target.value = "";
+        toast.success('Depoimento criado com sucesso');
+        event.target.reset();
       }
-    })
+    }).catch(error => { console.log(error); })
   }
 
   return (
     <form onSubmit={handleCreateTestimonial}>
+      <Toaster />
       <div style={{ margin: '10px 0' }}>
         <SunEditor
           name="message"
@@ -87,7 +89,7 @@ export function TestimonialForm(props) {
 export function TestimonialBox({ message, arrayList }) {
   return (
     <TestimonialBox.Wrapper>
-      <h2 className="smallTitle">{message}</h2>
+      <h2 className="smallTitle">{message} ({arrayList.length})</h2>
       <ul>
         {
           arrayList.slice(0, 2).map((item) => {

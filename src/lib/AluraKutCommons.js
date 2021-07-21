@@ -5,7 +5,6 @@ import NextLink from 'next/link';
 const BASE_URL = 'http://alurakut.vercel.app/';
 const v = '1';
 
-
 function Link({ href, children, ...props }) {
   return (
     <NextLink href={href} passHref>
@@ -25,7 +24,6 @@ export function AlurakutMenu({ githubUser }) {
     <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
       <div className="container">
         <AlurakutMenu.Logo src={`${BASE_URL}/logo.svg`} />
-
         <nav style={{ flex: 1 }}>
           {[{ name: 'Inicio', slug: '/' }, { name: 'Amigos', slug: '/amigos' }, { name: 'Comunidades', slug: '/comunidades' }].map((menuItem) => (
             <Link key={`key__${menuItem.name.toLocaleLowerCase()}`} href={`${menuItem.slug.toLocaleLowerCase()}`}>
@@ -35,7 +33,7 @@ export function AlurakutMenu({ githubUser }) {
         </nav>
 
         <nav>
-          <a href={`/logout`}>
+          <a href="/logout">
             Sair
           </a>
           <div style={{ paddingTop: '5px' }}>
@@ -193,11 +191,11 @@ export function AlurakutProfileSidebarMenuDefault() {
   return (
     <AlurakutProfileSidebarMenuDefault.Wrapper>
       <nav>
-        <a href="/">
+        <a href="/profile">
           <img src={`${BASE_URL}/icons/user.svg`} />
           Perfil
         </a>
-        <a href="/">
+        <a href="/scraps">
           <img src={`${BASE_URL}/icons/book.svg`} />
           Recados
         </a>
@@ -205,14 +203,14 @@ export function AlurakutProfileSidebarMenuDefault() {
           <img src={`${BASE_URL}/icons/camera.svg`} />
           Fotos
         </a>
-        <a href="/">
+        <a href="/testimonials">
           <img src={`${BASE_URL}/icons/sun.svg`} />
           Depoimentos
         </a>
       </nav>
       <hr />
       <nav>
-        <a href="/">
+        <a href="https://github.com/trending" target="_blank" rel="noopener noreferrer">
           <img src={`${BASE_URL}/icons/plus.svg`} />
           GitHub Trends
         </a>

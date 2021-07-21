@@ -2,37 +2,35 @@ import React, { useState, useEffect } from 'react';
 import MainGrid from '../src/components/MainGrid';
 import Box from '../src/components/Box';
 import CommunityForm from '../src/components/Community';
-import { ScrapForm, ScrapBox } from '../src/components/Scrap';
-import { TestimonialForm, TestimonialBox } from '../src/components/Testimonial';
+import { ScrapForm } from '../src/components/Scrap';
+import { TestimonialForm } from '../src/components/Testimonial';
+import ProfileSideBar from '../src/components/ProfileSideBar';
 import ProfileRelationsBox from '../src/components/ProfileRelations';
 import { FormOptionsButton } from '../src/components/FormOptionsButton';
-import { AlurakutMenu, OrkutNostalgicIconSet, AlurakutProfileSidebarMenuDefault } from '../src/lib/AluraKutCommons';
+import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AluraKutCommons';
 import 'suneditor/dist/css/suneditor.min.css';
+import toast, { Toaster } from 'react-hot-toast';
+import nookies from 'nookies';
+import jwt from 'jsonwebtoken';
+import { useCheckAuth } from '../src/hooks/useCheckAuth';
 
-function ProfileSideBar(props) {
-  return (
-    <Box as="aside">
-      <img src={`https://github.com/${props.githubUser}.png`} alt="profile" style={{ borderRadius: '8px' }} />
-      <hr />
-      <a className="boxLink" href={`https://github.com/${props.githubUser}`}>
-        @{props.githubUser}
-      </a>
-      <hr />
-      <AlurakutProfileSidebarMenuDefault />
-    </Box>
-  )
-}
-
-export default function Home() {
-  const githubUser = 'Alice7H';
+export default function Home(props) {
+  const githubUser = props.githubUser;
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const [communities, setCommunities] = useState([]);
-  const [scraps, setScraps] = useState([]);
-  const [testimonials, setTestimonials] = useState([]);
   const [activeForm, setActiveForm] = useState('community');
+  const [aleatoryMsg, setAleatoryMsg] = useState([
+    'Aquilo que sonha hoje, pode muito bem tornar-se realidade amanhã.',
+    'Pare de procurar eternamente, a felicidade está o seu lado.',
+    'Sua mente é criativa, original e perspicaz.',
+    'Primeiro, saiba qual é sua prioridade.',
+    'A sorte está a caminho! Muito trabalho, dedicação e pensamento positivo!',
+    'O importante na vida não é tanto onde estamos, mas em que direção caminhamos.',
+    'Quando se decide tomar uma decisão, é preciso colocá-la em prática.'
+  ]);
 
-  const token = process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN;
+  const token = process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN_READER;
 
   function getFollowers() {
     fetch(`https://api.github.com/users/${githubUser}/followers`)
@@ -90,7 +88,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        'Authorization': token,
       },
       body: JSON.stringify({
         query: `query {
@@ -110,83 +108,31 @@ export default function Home() {
       })
       .catch((error) => {
         console.log(error);
+        toast(`Error: ${error}`);
       });
   }
 
-  function getScraps() {
-    fetch('https://graphql.datocms.com/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        query: `query {
-          allScraps(filter: {receiveUser: {eq: ${githubUser}}})  {
-            id
-            message
-            author
-            receiveUser
-            image
-            createdAt
-          }
-        }`
-      }),
-    }).then(res => res.json())
-      .then((res) => {
-        const scrapDato = res.data.allScraps;
-        setScraps(scrapDato);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  function getTestimonials() {
-    fetch('https://graphql.datocms.com/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        query: `query {
-          allTestimonials(filter: {receiveUser: {eq: ${githubUser}}})  {
-            id
-            message(markdown: true)
-            author
-            receiveUser
-            createdAt
-          }
-        }`
-      }),
-    }).then(res => res.json())
-      .then((res) => {
-        const testimonialDato = res.data.allTestimonials;
-        setTestimonials(testimonialDato);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  function handleAleatoryMessage() {
+    const number = Math.round(Math.random() * 6);
+    const msg = aleatoryMsg[number];
+    setAleatoryMsg(msg);
   }
 
   useEffect(() => {
     getFollowers();
     getFollowing();
     getCommunities();
-    getScraps();
-    getTestimonials();
+    handleAleatoryMessage();
   }, []);
 
   function handleUpdateCommunity(communities) {
     setCommunities(communities);
-    // include toast
+    toast.success('Comunidade atualizada com sucesso');
   }
 
   return (
     <>
+      <Toaster />
       <AlurakutMenu githubUser={githubUser} />
       <MainGrid>
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
@@ -194,7 +140,8 @@ export default function Home() {
         </div>
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
           <Box>
-            <h1 className="title">Bem vindo(a)</h1>
+            <h1 className="title">Bem vindo(a), {githubUser}</h1>
+            <p className="luckMessage">Sorte de hoje: {aleatoryMsg}</p>
             <OrkutNostalgicIconSet />
           </Box>
           <Box>
@@ -237,15 +184,6 @@ export default function Home() {
             }
 
           </Box>
-          <ScrapBox
-            message={scraps.length > 1 ? 'Recados' : 'Recado'}
-            arrayList={scraps}
-          />
-
-          <TestimonialBox
-            message={testimonials.length > 1 ? 'Depoimentos' : 'Depoimento'}
-            arrayList={testimonials}
-          />
 
         </div>
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
@@ -265,4 +203,28 @@ export default function Home() {
       </MainGrid>
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const cookies = nookies.get(context);
+  const token = cookies.USER_TOKEN;
+
+  const isAuthenticated = await useCheckAuth(token);
+
+  if (!isAuthenticated) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false,
+      }
+    }
+  }
+
+  const { githubUser } = jwt.decode(token); // token decoded
+  return {
+    // will be passed to the page component as props
+    props: {
+      githubUser
+    },
+  }
 }
