@@ -9,7 +9,6 @@ O projeto Alurakut é uma rede social que foi criado durante a Imersão React da
  <a href="#objetivo">Objetivo</a> • 
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#layout">Layout</a> • 
- <a href="#status">Status</a> •
  <a href="#pré-requisitos">Pré-requisitos</a>
 </p>
 
@@ -32,11 +31,6 @@ As seguintes ferramentas/bibliotecas foram usadas na construção do projeto:
 
 ## Layout 
 - [Figma](https://www.figma.com/file/K68ZzQKDgtINkSrjI4H4vA/Alurakut?node-id=58%3A0)
-
-## Status
-<h4 align="center"> 
-	🚧  Alurakut 🚀 Em construção...  🚧
-</h4>
 
 ## Pré-requisitos
 
