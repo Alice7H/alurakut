@@ -1,50 +1,16 @@
-import { useState, useEffect } from 'react';
 import MainGrid from '../src/components/MainGrid';
 import Box from '../src/components/Box';
-import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AluraKutCommons';
+import { AlurakutMenu } from '../src/lib/AluraKutCommons';
 import ProfileSideBar from '../src/components/ProfileSideBar';
 import { TestimonialBox } from '../src/components/Testimonial';
 import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 import { useCheckAuth } from '../src/hooks/useCheckAuth';
+import { useTestimonials } from '../src/hooks/useTestimonials';
 
 export default function TestimonialsScreen(props) {
   const githubUser = props.githubUser;
-  const [testimonials, setTestimonials] = useState([]);
-  const token = process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN_READER;
-
-  function getTestimonials() {
-    fetch('https://graphql.datocms.com/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': token,
-      },
-      body: JSON.stringify({
-        query: `query {
-          allTestimonials(filter: {receiveUser: {eq: ${githubUser}}})  {
-            id
-            message(markdown: true)
-            author
-            receiveUser
-            createdAt
-          }
-        }`
-      }),
-    }).then(res => res.json())
-      .then((res) => {
-        const testimonialDato = res.data.allTestimonials;
-        setTestimonials(testimonialDato);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  useEffect(() => {
-    getTestimonials();
-  }, []);
+  const testimonials = useTestimonials(githubUser);
 
   return (
     <>
@@ -55,8 +21,7 @@ export default function TestimonialsScreen(props) {
         </div>
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
           <Box>
-            <h1 className="title">Bem vindo(a), {githubUser}</h1>
-            <OrkutNostalgicIconSet />
+            <h1 className="title">Depoimentos para {githubUser}</h1>
           </Box>
           <TestimonialBox
             message={testimonials.length > 1 ? 'Depoimentos' : 'Depoimento'}

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Box from '../Box';
 
-export default function ProfileRelationsBox({ title, arrayList }) {
+export default function ProfileRelationsBox({ title, arrayList, link }) {
   return (
     <ProfileRelationsBox.Wrapper>
       <h2 className="smallTitle">
@@ -14,8 +14,8 @@ export default function ProfileRelationsBox({ title, arrayList }) {
             return (
               <li key={item.id}>
                 <a href={item.link} target="_blank" rel="noopener noreferrer">
-                  <img src={item.image || `https://picsum.photos/300/300?random=${number}`} alt={item.title} />
-                  <span>{item.title}</span>
+                  <img src={item.image || `https://picsum.photos/300/300?random=${number}`} alt={item.title || item.name} />
+                  <span>{item.title || item.name}</span>
                 </a>
               </li>
             );
@@ -23,7 +23,9 @@ export default function ProfileRelationsBox({ title, arrayList }) {
         }
       </ul>
       <hr />
-      <a href="" className="boxLink">Ver todos</a>
+      {link &&
+        <a href={link} className="boxLink">Ver todos</a>
+      }
     </ProfileRelationsBox.Wrapper>
   );
 }

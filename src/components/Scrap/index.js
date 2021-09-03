@@ -35,6 +35,7 @@ export function ScrapForm(props) {
           placeholder="Deixe um recado"
           name="message"
           type="text"
+          required
           aria-label="Deixe um recado"
           required
         />
@@ -52,6 +53,7 @@ export function ScrapForm(props) {
           placeholder="Para quem quer enviar o recado?"
           name="receiveUser"
           type="text"
+          required
           aria-label="Para quem quer enviar o recado?"
         />
       </div>
@@ -68,7 +70,7 @@ export function ScrapBox({ message, arrayList }) {
       <h2 className="smallTitle">{message} ({arrayList.length})</h2>
       <ul>
         {
-          arrayList.slice(0, 2).map((item) => {
+          arrayList.slice(0, 10).map((item) => {
             const options = {
               weekday: 'short',
               year: 'numeric',

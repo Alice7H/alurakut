@@ -13,11 +13,18 @@ import toast, { Toaster } from 'react-hot-toast';
 import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 import { useCheckAuth } from '../src/hooks/useCheckAuth';
+import { useFollowers } from '../src/hooks/useFollowers';
+import { useFollowing } from '../src/hooks/useFollowing';
+import { useScraps } from '../src/hooks/useScraps';
+import { useTestimonials } from '../src/hooks/useTestimonials';
 
 export default function Home(props) {
   const githubUser = props.githubUser;
-  const [followers, setFollowers] = useState([]);
-  const [following, setFollowing] = useState([]);
+  const token = process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN_READER;
+  const followers = useFollowers(githubUser);
+  const following = useFollowing(githubUser);
+  const scraps = useScraps(githubUser);
+  const testimonials = useTestimonials(githubUser);
   const [communities, setCommunities] = useState([]);
   const [activeForm, setActiveForm] = useState('community');
   const [aleatoryMsg, setAleatoryMsg] = useState([
@@ -30,56 +37,10 @@ export default function Home(props) {
     'Quando se decide tomar uma decisão, é preciso colocá-la em prática.'
   ]);
 
-  const token = process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN_READER;
-
-  function getFollowers() {
-    fetch(`https://api.github.com/users/${githubUser}/followers`)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error('Requisição não completada.');
-      })
-      .then(res => {
-        const auxArray = [];
-        res.map(item => {
-          const follower = {
-            id: item.id,
-            title: item.login,
-            image: item.avatar_url,
-            link: item.html_url,
-          }
-          auxArray.push(follower);
-        })
-        setFollowers(auxArray);
-      }).catch((error) => {
-        console.log(error);
-      });
-  }
-
-  function getFollowing() {
-    fetch(`https://api.github.com/users/${githubUser}/following`)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        throw new Error('Requisição não completada.');
-      })
-      .then(res => {
-        const auxArray = [];
-        res.map(item => {
-          const follow = {
-            id: item.id,
-            title: item.login,
-            image: item.avatar_url,
-            link: item.html_url,
-          }
-          auxArray.push(follow);
-        })
-        setFollowing(auxArray);
-      }).catch((error) => {
-        console.log(error);
-      });
+  function handleAleatoryMessage() {
+    const number = Math.round(Math.random() * 6);
+    const msg = aleatoryMsg[number];
+    setAleatoryMsg(msg);
   }
 
   function getCommunities() {
@@ -102,33 +63,24 @@ export default function Home(props) {
         }`
       }),
     }).then(res => res.json())
-      .then((res) => {
-        const comunidadesDato = res.data.allCommunities;
-        setCommunities(comunidadesDato);
+      .then(async (res) => {
+        const communitiesDato = await res.data.allCommunities;
+        setCommunities(communitiesDato);
       })
       .catch((error) => {
         console.log(error);
-        toast(`Error: ${error}`);
       });
   }
 
-  function handleAleatoryMessage() {
-    const number = Math.round(Math.random() * 6);
-    const msg = aleatoryMsg[number];
-    setAleatoryMsg(msg);
+  function handleUpdateCommunity(cmt) {
+    setCommunities(cmt);
+    toast.success('Comunidade atualizada com sucesso');
   }
 
   useEffect(() => {
-    getFollowers();
-    getFollowing();
     getCommunities();
     handleAleatoryMessage();
   }, []);
-
-  function handleUpdateCommunity(communities) {
-    setCommunities(communities);
-    toast.success('Comunidade atualizada com sucesso');
-  }
 
   return (
     <>
@@ -142,7 +94,15 @@ export default function Home(props) {
           <Box>
             <h1 className="title">Bem vindo(a), {githubUser}</h1>
             <p className="luckMessage">Sorte de hoje: {aleatoryMsg}</p>
-            <OrkutNostalgicIconSet />
+            <OrkutNostalgicIconSet
+              recados={scraps.length}
+              fotos={following.length}
+              fas={followers.length}
+              mensagens={testimonials.length}
+              confiavel={3}
+              legal={3}
+              sexy={2}
+            />
           </Box>
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
@@ -182,22 +142,20 @@ export default function Home(props) {
                   ? <TestimonialForm githubUser={githubUser} />
                   : null
             }
-
           </Box>
-
         </div>
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
           <ProfileRelationsBox
             title={communities.length > 1 ? 'Comunidades' : 'Comunidade'}
-            arrayList={communities} />
+            arrayList={communities} link="/communities" />
 
           <ProfileRelationsBox
             title="Seguindo"
-            arrayList={following} />
+            arrayList={following} link="/photos" />
 
           <ProfileRelationsBox
             title={followers.length > 1 ? 'Seguidores' : 'Seguidor'}
-            arrayList={followers} />
+            arrayList={followers} link="/friends" />
 
         </div>
       </MainGrid>

@@ -29,6 +29,10 @@ export function TestimonialForm(props) {
       if (testimonial) {
         toast.success('Depoimento criado com sucesso');
         event.target.reset();
+        const editorContent = document.querySelector('.sun-editor-editable').children;
+        [...editorContent].map(res => {
+          res.innerText = '';
+        });
       }
     }).catch(error => { console.log(error); })
   }
@@ -76,6 +80,7 @@ export function TestimonialForm(props) {
           placeholder="Para quem quer enviar o depoimento?"
           name="receiveUser"
           type="text"
+          required
           aria-label="Para quem quer enviar o depoimento?"
         />
       </div>
@@ -92,7 +97,7 @@ export function TestimonialBox({ message, arrayList }) {
       <h2 className="smallTitle">{message} ({arrayList.length})</h2>
       <ul>
         {
-          arrayList.slice(0, 2).map((item) => {
+          arrayList.slice(0, 10).map((item) => {
             const options = {
               weekday: 'short',
               year: 'numeric',

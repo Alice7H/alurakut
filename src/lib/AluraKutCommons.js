@@ -25,7 +25,7 @@ export function AlurakutMenu({ githubUser }) {
       <div className="container">
         <AlurakutMenu.Logo src={`${BASE_URL}/logo.svg`} />
         <nav style={{ flex: 1 }}>
-          {[{ name: 'Inicio', slug: '/' }, { name: 'Amigos', slug: '/amigos' }, { name: 'Comunidades', slug: '/comunidades' }].map((menuItem) => (
+          {[{ name: 'Inicio', slug: '/' }, { name: 'Amigos', slug: '/friends' }, { name: 'Comunidades', slug: '/communities' }].map((menuItem) => (
             <Link key={`key__${menuItem.name.toLocaleLowerCase()}`} href={`${menuItem.slug.toLocaleLowerCase()}`}>
               {menuItem.name}
             </Link>
@@ -199,7 +199,7 @@ export function AlurakutProfileSidebarMenuDefault() {
           <img src={`${BASE_URL}/icons/book.svg`} />
           Recados
         </a>
-        <a href="/">
+        <a href="/photos">
           <img src={`${BASE_URL}/icons/camera.svg`} />
           Fotos
         </a>
@@ -258,7 +258,7 @@ export function OrkutNostalgicIconSet(props) {
           </span>
           <span className="OrkutNostalgicIconSet__number" style={{ gridArea: 'number' }}>
             <img key={`orkut__icon_set__${slug}_img`} className="OrkutNostalgicIconSet__iconSample" src={`https://alurakut.vercel.app/icons/${icon}.svg`} />
-            {props[slug] ? props[slug] : 10}
+            {props[slug] ? props[slug] : 0}
           </span>
         </li>
       ))}

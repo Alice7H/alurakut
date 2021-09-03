@@ -2,7 +2,7 @@ import MainGrid from '../src/components/MainGrid';
 import Box from '../src/components/Box';
 import { AlurakutMenu, OrkutNostalgicIconSet } from '../src/lib/AluraKutCommons';
 import ProfileSideBar from '../src/components/ProfileSideBar';
-import ProfileTable from '../src/components/ProfileTable';
+import MainTable from '../src/components/MainTable';
 import nookies from 'nookies';
 import jwt from 'jsonwebtoken';
 import { useCheckAuth } from '../src/hooks/useCheckAuth';
@@ -19,11 +19,10 @@ export default function ProfileScreen(props) {
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
           <Box>
             <h1 className="title">Perfil do(a) {githubUser}</h1>
-            <OrkutNostalgicIconSet />
           </Box>
           <Box>
             <h2 className="subTitle">Informações Pessoais</h2>
-            <ProfileTable>
+            <MainTable>
               <tbody>
                 <tr>
                   <td className="text-right">Relacionamento:</td>
@@ -96,7 +95,7 @@ export default function ProfileScreen(props) {
                   <td className="text-left">não informado</td>
                 </tr>
               </tbody>
-            </ProfileTable>
+            </MainTable>
           </Box>
         </div>
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
