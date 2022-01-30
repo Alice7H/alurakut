@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img alt="Alurakut" title="#Alurakut" src="http://alurakut.vercel.app//logo.svg" alt="Alurakut logo" width="180px">
+  <img title="#Alurakut" src="http://alurakut.vercel.app//logo.svg" alt="Alurakut logo" width="180px">
 </h1>
 
 # Alurakut
