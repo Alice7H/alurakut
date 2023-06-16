@@ -7,12 +7,12 @@ const v = '1';
 
 function Link({ href, children, ...props }) {
   return (
-    <NextLink href={href} passHref>
-      <a {...props}>
-        {children}
-      </a>
-    </NextLink>
-  )
+    (<NextLink href={href} passHref {...props}>
+
+      {children}
+
+    </NextLink>)
+  );
 }
 
 // ================================================================================================================
@@ -155,7 +155,7 @@ AlurakutMenu.Wrapper = styled.header`
         color: #ffffff;
         opacity: 1;
       }
-    } 
+    }
   }
 `;
 AlurakutMenu.Logo = styled.img`
@@ -234,7 +234,7 @@ AlurakutProfileSidebarMenuDefault.Wrapper = styled.div`
     img {
       width: 16px;
       height: 16px;
-      margin-right: 5px; 
+      margin-right: 5px;
     }
   }
 `;
@@ -273,7 +273,7 @@ export function OrkutNostalgicIconSet(props) {
             <span className="OrkutNostalgicIconSet__title">
               {name}
             </span>
-            <span className="OrkutNostalgicIconSet__iconComplex" className="OrkutNostalgicIconSet__number" style={{ gridArea: 'number' }}>
+            <span className="OrkutNostalgicIconSet__number" style={{ gridArea: 'number' }}>
               {[0, 1, 2].map((_, index) => {
                 const isHeartActive = index <= (total - 1);
                 return <img key={`orkut__icon_set__${slug}_img_${index}`} src={`https://alurakut.vercel.app/icons/${icon}.svg`} style={{ marginRight: '2px', opacity: isHeartActive ? 1 : '0.5' }} />
@@ -297,14 +297,14 @@ OrkutNostalgicIconSet.List = styled.ul`
     display: grid;
     grid-template-areas:
       "title title"
-      "number number"; 
-    
+      "number number";
+
     &:not(:last-child) {
       margin-right: 5px;
     }
     .OrkutNostalgicIconSet__title {
       display: block;
-      font-style: italic; 
+      font-style: italic;
     }
     .OrkutNostalgicIconSet__number {
       min-width: 15px;
@@ -346,13 +346,13 @@ const AlurakutLoginScreen = css`
     --gap: 12px;
     --gutter: 16px;
     grid-gap: var(--gap);
-    grid-template-areas: 
+    grid-template-areas:
       "logoArea"
       "formArea"
       "footerArea";
     @media(min-width: 860px) {
       grid-template-columns: 2fr 1fr;
-      grid-template-areas: 
+      grid-template-areas:
               "logoArea formArea"
               "logoArea formArea"
               "footerArea footerArea";
@@ -466,14 +466,14 @@ export const AlurakutStyles = css`
     width: 8px;
   }
   *::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: #f1f1f1;
   }
   *::-webkit-scrollbar-thumb {
-    background: #888; 
+    background: #888;
     border-radius: 10px;
   }
   *::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #555;
   }
   a,
   button {
