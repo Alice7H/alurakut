@@ -17,6 +17,7 @@ import { useFollowers } from '../src/hooks/useFollowers';
 import { useFollowing } from '../src/hooks/useFollowing';
 import { useScraps } from '../src/hooks/useScraps';
 import { useTestimonials } from '../src/hooks/useTestimonials';
+import { aleatoryMessages } from '../src/lib/AleatoryMessages';
 
 export default function Home(props) {
   const githubUser = props.githubUser;
@@ -27,15 +28,7 @@ export default function Home(props) {
   const testimonials = useTestimonials(githubUser);
   const [communities, setCommunities] = useState([]);
   const [activeForm, setActiveForm] = useState('community');
-  const [aleatoryMsg, setAleatoryMsg] = useState([
-    'Aquilo que sonha hoje, pode muito bem tornar-se realidade amanhã.',
-    'Pare de procurar eternamente, a felicidade está o seu lado.',
-    'Sua mente é criativa, original e perspicaz.',
-    'Primeiro, saiba qual é sua prioridade.',
-    'A sorte está a caminho! Muito trabalho, dedicação e pensamento positivo!',
-    'O importante na vida não é tanto onde estamos, mas em que direção caminhamos.',
-    'Quando se decide tomar uma decisão, é preciso colocá-la em prática.'
-  ]);
+  const [aleatoryMsg, setAleatoryMsg] = useState(aleatoryMessages);
 
   function handleAleatoryMessage() {
     const number = Math.round(Math.random() * 6);
@@ -74,7 +67,7 @@ export default function Home(props) {
 
   function handleUpdateCommunity(cmt) {
     setCommunities(cmt);
-    toast.success('Comunidade atualizada com sucesso');
+    toast.success('Comunidade criada com sucesso');
   }
 
   useEffect(() => {
@@ -130,18 +123,16 @@ export default function Home(props) {
               </button>
             </FormOptionsButton>
 
-            {activeForm == 'community' ?
+            {
+              activeForm == 'community' &&
               <CommunityForm
                 githubUser={githubUser}
                 communities={communities}
                 handleUpdateCommunity={handleUpdateCommunity}
               />
-              : activeForm == 'scrap'
-                ? <ScrapForm githubUser={githubUser} />
-                : activeForm == 'testimonial'
-                  ? <TestimonialForm githubUser={githubUser} />
-                  : null
             }
+            {activeForm == 'scrap' && <ScrapForm githubUser={githubUser} />}
+            {activeForm == 'testimonial' && <TestimonialForm githubUser={githubUser} />}
           </Box>
         </div>
         <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>

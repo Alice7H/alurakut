@@ -17,7 +17,7 @@ export default function CommunitiesScreen(props) {
   const token = process.env.NEXT_PUBLIC_DATOCMS_API_TOKEN_READER;
   const [members, setMembers] = useState([]);
 
-  useEffect(async () => {
+  useEffect(() => {
     async function countMembers(id) {
       const res = await fetch('https://graphql.datocms.com/', {
         method: 'POST',
@@ -45,11 +45,13 @@ export default function CommunitiesScreen(props) {
       return 0;
     }
 
-    const promises = communities.map(community => {
-      return countMembers(community.id);
-    });
+    async function loadMembersPerCommunity() {
+      const promises = communities.map(community => countMembers(community.id));
+      setMembers(await Promise.all(promises));
+    }
 
-    setMembers(await Promise.all(promises));
+    loadMembersPerCommunity()
+
   }, [communities])
 
   return (
@@ -68,7 +70,7 @@ export default function CommunitiesScreen(props) {
             <MainTable>
               <tbody>
                 {
-                  communities.map((community, index) => {
+                  communities && communities.map((community, index) => {
                     return (
                       <tr
                         style={{ cursor: 'pointer' }}

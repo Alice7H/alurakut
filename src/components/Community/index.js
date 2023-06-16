@@ -20,8 +20,10 @@ export default function CommunityForm(props) {
       const community = result.registerCreated;
       const updatedCommunities = [...props.communities, community];
       event.target.reset();
+
       props.handleUpdateCommunity(updatedCommunities);
     }).catch(error => console.error(error));
+
   }
 
   return (

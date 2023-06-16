@@ -33,29 +33,28 @@ export default function PhotosScreen(props) {
               boxSizing: 'border-box',
             }}
             >
-              {
-                following.slice(0, 6).map(follow => {
-                  return (
-                    <div key={follow.id}
-                      style={{
-                        margin: '5px',
-                      }}
+              {following.length > 0
+                ? following.map(follow =>
+                  <div key={follow.id}
+                    style={{
+                      margin: '5px',
+                    }}
+                  >
+                    <a href={follow.link}
+                      target='_blank'
+                      rel="noopener noreferrer"
+                      title={`Abrir perfil do github de ${follow.title}`}
                     >
-                      <a href={follow.link}
-                        target='_blank'
-                        rel="noopener noreferrer"
-                        title={`Abrir perfil do github de ${follow.title}`}
-                      >
-                        <img src={follow.image}
-                          alt={follow.title}
-                          width="150px"
-                          height="150px"
-                          style={{ borderRadius: '8px' }}
-                        />
-                      </a>
-                    </div>
-                  )
-                })
+                      <img src={follow.image}
+                        alt={follow.title}
+                        width="150px"
+                        height="150px"
+                        style={{ borderRadius: '8px' }}
+                      />
+                    </a>
+                  </div>
+                )
+                : <div style={{ margin: '5px' }} ><p>Você não possui fotos</p></div>
               }
             </div>
           </Box>

@@ -9,7 +9,7 @@ export function ScrapForm(props) {
     const scrap = {
       message: dataForm.get('message'),
       author: props.githubUser,
-      receiveUser: dataForm.get('receiveUser'),
+      receive_user: dataForm.get('receiveUser'),
       image: dataForm.get('image'),
     }
 
@@ -37,7 +37,6 @@ export function ScrapForm(props) {
           type="text"
           required
           aria-label="Deixe um recado"
-          required
         />
       </div>
       <div>
@@ -49,10 +48,10 @@ export function ScrapForm(props) {
         />
       </div>
       <div>
-        <input type="text"
+        <input
+          type="text"
           placeholder="Para quem quer enviar o recado?"
           name="receiveUser"
-          type="text"
           required
           aria-label="Para quem quer enviar o recado?"
         />
@@ -103,7 +102,7 @@ ScrapBox.Wrapper = styled(Box)`
   ul {
     display: grid;
     grid-gap: 8px;
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
     list-style: none;
   }
   li div {
@@ -121,7 +120,7 @@ ScrapBox.Wrapper = styled(Box)`
   p {
     color: var(--colorPrimary);
   }
-  
+
   @media(max-width: 399px) {
       li div {
         flex-direction: column;

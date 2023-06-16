@@ -6,7 +6,7 @@ export default function ProfileSideBar(props) {
     <Box as="aside">
       <img src={`https://github.com/${props.githubUser}.png`} alt="profile" style={{ borderRadius: '8px' }} />
       <hr />
-      <a className="boxLink" href={`https://github.com/${props.githubUser}`}>
+      <a className="boxLink" href={`https://github.com/${props.githubUser}`} target="_blank" rel="noopener noreferrer">
         @{props.githubUser}
       </a>
       <hr />

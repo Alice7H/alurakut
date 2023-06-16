@@ -32,8 +32,8 @@ export default function CommunitiesScreen(props) {
     setMembersEnabled(enabledMembers);
   }
 
-  async function getGithubUserInfo(newMember) {
-    return await fetch(`https://api.github.com/users/${newMember.name}`)
+  function getGithubUserInfo(newMember) {
+    return fetch(`https://api.github.com/users/${newMember.name}`)
       .then((res) => res.json())
       .then((data) => {
         const customMember = {
@@ -52,12 +52,13 @@ export default function CommunitiesScreen(props) {
   function handleUpdateMembers(newMember) {
     members.map(member => {
       if (newMember.id === member.id) {
-        setCommunityMembers(members.filter(member => member.id !== newMember.id));
+        const noRepeatedMembers = members.filter(m => m.id !== newMember.id)
+        setCommunityMembers(noRepeatedMembers);
       }
-      getGithubUserInfo(newMember).then(response => {
-        setCommunityMembers(members => [...members, response]);
-      }).catch(error => { console.log('error: ', error) });
     });
+    getGithubUserInfo(newMember).then(response => {
+      setCommunityMembers(prev => [...prev, response]);
+    }).catch(error => { console.log('error: ', error) });
     getEnabledMembers();
   }
 
@@ -158,7 +159,7 @@ export default function CommunitiesScreen(props) {
 }
 
 const NavRedirectRouter = styled.nav`
-  margin: 20px 0; 
+  margin: 20px 0;
   a {
     text-decoration: none;
     color: var(--textTertiaryColor);

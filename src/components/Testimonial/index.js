@@ -16,7 +16,7 @@ export function TestimonialForm(props) {
     const testimonial = {
       message: dataForm.get('message'),
       author: props.githubUser,
-      receiveUser: dataForm.get('receiveUser'),
+      receive_user: dataForm.get('receiveUser'),
     }
 
     fetch('/api/testimonials', {
@@ -76,10 +76,10 @@ export function TestimonialForm(props) {
         />
       </div>
       <div>
-        <input type="text"
+        <input
+          type="text"
           placeholder="Para quem quer enviar o depoimento?"
           name="receiveUser"
-          type="text"
           required
           aria-label="Para quem quer enviar o depoimento?"
         />
@@ -129,7 +129,7 @@ TestimonialBox.Wrapper = styled(Box)`
   ul {
     display: grid;
     grid-gap: 8px;
-    grid-template-columns: 1fr; 
+    grid-template-columns: 1fr;
     list-style: none;
   }
 
