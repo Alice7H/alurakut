@@ -1,4 +1,3 @@
-import { SiteClient } from 'datocms-client';
 import { buildClient, LogLevel } from '@datocms/cma-client-node';
 
 export default async function receiveRequests(request, response) {
