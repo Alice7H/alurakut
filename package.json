@@ -5,6 +5,9 @@
     "build": "next build",
     "start": "next start"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "html-react-parser": "^1.2.7",
     "jsonwebtoken": "^8.5.1",
